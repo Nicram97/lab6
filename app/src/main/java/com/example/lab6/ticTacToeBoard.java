@@ -72,12 +72,12 @@ public class ticTacToeBoard extends BaseAdapter {
 
     @Override //Must be in adapter
     public Object getItem(int position) {
-        return position % 3;
+        return position;
     }
 
     @Override //Must be in adapter
     public long getItemId(int position) {
-        return position % 3;
+        return position;
     }
 
     //Method for generate view of singe element in greed

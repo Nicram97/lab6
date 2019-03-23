@@ -89,13 +89,13 @@ public class ticTacToe extends AppCompatActivity {
                 {
                     //new game
                     //Set data - URL
-                    intencja.putExtra(HttpService.URL, HttpService.LINES);
+                    intencja.putExtra(HttpService.URL, HttpService.XO);
                     //Set data - method of request
                     intencja.putExtra(HttpService.METHOD, HttpService.POST);
                 }else{
                     //existing game
                     //Set data - URL
-                    intencja.putExtra(HttpService.URL, HttpService.LINES+game_id);
+                    intencja.putExtra(HttpService.URL, HttpService.XO+game_id);
                     //Set data - method of request
                     intencja.putExtra(HttpService.METHOD, HttpService.PUT);
                 }
@@ -242,7 +242,7 @@ public class ticTacToe extends AppCompatActivity {
         //Creating PendingIntent - for getting result
         PendingIntent pendingResult = createPendingResult(HttpService.REFRESH, new Intent(),0);
         //Set data - URL
-        intencja.putExtra(HttpService.URL, HttpService.LINES+game_id);
+        intencja.putExtra(HttpService.URL, HttpService.XO+game_id);
         //Set data - method of request
         intencja.putExtra(HttpService.METHOD, HttpService.GET);
         //Set data - intent for result
