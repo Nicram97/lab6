@@ -2,9 +2,7 @@ package com.example.lab6;
 
 import android.app.IntentService;
 import android.app.PendingIntent;
-import android.app.Service;
 import android.content.Intent;
-import android.os.IBinder;
 import android.util.Log;
 
 import java.io.BufferedReader;
@@ -14,6 +12,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class HttpService extends IntentService {
+    //Constant variables as Flags
     public static final int GAMES_LIST = 1;
     public static final int IN_ROW = 2;
     public static final int REFRESH = 3;
@@ -23,19 +22,24 @@ public class HttpService extends IntentService {
     public static final String PARAMS = "Params";
     public static final String RETURN = "Return";
     public static final String RESPONSE = "Response";
-    public static final String LINES = "http://games.antons.pl/lines/";
-    public static final String XO = "http://games.antons.pl/xo/";
+    public static final String LINES = "http://games.antons.pl/lines";
+    public static final String XO = "http://games.antons.pl/xo";
     public static final int GET = 1;
     public static final int POST = 2;
     public static final int PUT = 3;
-    public HttpService() {super("HTTP calls handler");}
+
+    //Create constructor
+    public HttpService() {
+        //Parent Constructor
+        super("HTTP calls handler");
+    }
 
     @Override
     protected void onHandleIntent(Intent intent) {
         try {
             //Create url object from given string
             String urlstr = intent.getStringExtra(HttpService.URL);
-            java.net.URL url = new URL(urlstr);
+            URL url = new URL(urlstr);
             //Prepare connection
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             //set connection method

@@ -1,9 +1,10 @@
 package com.example.lab6;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -13,8 +14,18 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
-    public void gameList(View v){
-        Intent intencja = new Intent(getApplicationContext(),GamesList.class);
+    //Method invoke by clicking the Button
+    public void gameList(View v)
+    {
+        Intent intencja = new Intent(getApplicationContext(), GamesList.class);
+        //Sending message what game was choose
         intencja.putExtra("gra", v.getId());
-        startActivity(intencja);}
+        startActivity(intencja);
+    }
+
+
+
+
+
+
 }
