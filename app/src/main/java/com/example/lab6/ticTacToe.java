@@ -173,7 +173,8 @@ public class ticTacToe extends AppCompatActivity {
 
                 //check whose turn
                 if(response.getInt("status")==player){
-                    if(game.checkWin()==player) {
+                    int winStatus = game.checkWin();
+                    if(winStatus==player) {
                         hints(ticTacToe.WIN);
                     }else if(game.checkWin()!=0){
                         hints(ticTacToe.LOSE);
