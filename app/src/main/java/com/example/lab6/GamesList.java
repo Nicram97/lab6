@@ -99,7 +99,11 @@ public class GamesList extends AppCompatActivity {
                         break;
                     default:
                         //TODO - when gamer choose TicTacToe Game
-                        System.out.print("SIEMA");
+                        intencja = new Intent(getApplicationContext(), ticTacToe.class);
+                        //Sending info about game status and taken moves
+                        intencja.putExtra(ticTacToe.STATUS, ticTacToe.NEW_GAME);
+                        //as new game there is no previous moves
+                        intencja.putExtra(ticTacToe.MOVES, "");
                         break;
                 }
                 startActivity(intencja);
@@ -229,8 +233,31 @@ public class GamesList extends AppCompatActivity {
                 Intent intencja = new Intent(getApplicationContext(), ticTacToe.class);
 
                 try {
+                    //Parse server response
+                    JSONObject response = new JSONObject(data.getStringExtra(HttpService.RESPONSE));
+
+                    //Set Game number
+                    intencja.putExtra(ticTacToe.GAME_ID, response.getInt("id"));
+
+                    if (response.getInt("status") == 0 && response.getInt("player1") == 2) {
+                        //connect to new game
+                        intencja.putExtra(ticTacToe.STATUS, ticTacToe.YOUR_TURN);
+                    } else if (response.getInt("status") == 1 && response.getInt("player1") == 1) {
+                        //time to player1 move
+                        intencja.putExtra(ticTacToe.STATUS, ticTacToe.YOUR_TURN);
+                    } else if (response.getInt("status") == 2 && response.getInt("player1") == 2) {
+                        //time to player2 move
+                        intencja.putExtra(ticTacToe.STATUS, ticTacToe.YOUR_TURN);
+                    } else
+                        intencja.putExtra(ticTacToe.STATUS, ticTacToe.WAIT);
+
+                    //set player number
+                    intencja.putExtra(ticTacToe.PLAYER, response.getInt("player1"));
+                    //set previous moves
+                    intencja.putExtra(ticTacToe.MOVES, response.getString("moves"));
                     //start game
                     startActivity(intencja);
+
 
                 } catch (Exception ex) {
                     //For JSON Object

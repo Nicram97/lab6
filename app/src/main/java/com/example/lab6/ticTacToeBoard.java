@@ -13,43 +13,53 @@ public class ticTacToeBoard extends BaseAdapter {
     private int[][] board = new int[3][3]; //game board
 
     //Constructor
-    public ticTacToeBoard(Context cont) {
+    public ticTacToeBoard(Context cont, String moves) {
         context = cont;
 
         //Filing empty board by moves history
         int mvs = 0;
-//        for (String move : moves.split("(?!^)")) {
-//            if (move != "") {
-//                try {
-//                    this.move(Integer.parseInt(move), mvs++ % 2);
-//                } catch (Exception e) {
-//                }
-//            }
-//        }
+        for (String move : moves.split("(?!^)")) {
+            if (move != "") {
+                try {
+                    int parsedMove = Integer.parseInt(move);
+                    int row = parsedMove / 3;
+                    int col = parsedMove % 3;
+                    this.move(col, row,mvs++ % 2);
+                } catch (Exception e) {
+                }
+            }
+        }
         //Setting Current Player
         player = mvs % 2;
     }
 
     //Method make move
-    private boolean move(int col, int player)
-    {
-        int row = 0;
-        try {
-            //when fild is taken, go upstairs
-            while (board[row][col] != 0)
-                row++;
-            board[row][col]=player+1;
-        }catch(Exception ex){
-            /*if all cols are fils*/
+    private boolean move(int col, int row, int player) {
+//        int row = 0;
+//        try {
+        //when field is taken, go upstairs
+//            while (board[row][col] != 0)
+//                row++;
+//            board[row][col]=player+1;
+//        }catch(Exception ex){
+        /*if all cols are fils*/
+//            return false;
+//        }
+//        return true;
+        if (board[row][col] == 0) {
+            board[row][col] = player + 1;
+            return true;
+        } else {
             return false;
         }
-        return true;
     }
 
     //Public method making move for playing user
-    public ticTacToeBoard add(long col){
+    public ticTacToeBoard add(int count) {
+        int row = count / 3;
+        int col = count % 3;
         //If change `player++%2` to `player` there is no switching between players
-        if(this.move((int)col, player++%2))
+        if (this.move(col, row, player++ % 2))
             return this;
         return null;
         //return only when moves are correct
@@ -57,15 +67,17 @@ public class ticTacToeBoard extends BaseAdapter {
 
     @Override //Must be in adapter
     public int getCount() {
-        return 3*3;
+        return 3 * 3;
     }
+
     @Override //Must be in adapter
     public Object getItem(int position) {
-        return position%3;
+        return position % 3;
     }
+
     @Override //Must be in adapter
     public long getItemId(int position) {
-        return position%3;
+        return position % 3;
     }
 
     //Method for generate view of singe element in greed
@@ -74,11 +86,11 @@ public class ticTacToeBoard extends BaseAdapter {
         //Create element - ImageView
         ImageView iv = new ImageView(context);
         //Calculate position of element into board array
-        int col = position%3;
-        int row = 2-position/3;
+        int col = position % 3;
+        int row = position / 3;
 
         //Set appropriate image
-        switch (board[row][col]){
+        switch (board[row][col]) {
             case 0:
                 iv.setImageResource(R.drawable.circle);
                 break;
@@ -94,60 +106,57 @@ public class ticTacToeBoard extends BaseAdapter {
         }
 
         //Seting size of image - 120x120 px
-        iv.setLayoutParams(new LinearLayout.LayoutParams(120,120));
+        iv.setLayoutParams(new LinearLayout.LayoutParams(120, 120));
         return iv;
     }
 
-//    public int checkWin(){
-//        int check = 0;
-//
-//        //Check rows
-//        for(int row=0; row<3; row++, check=0)
-//            for(int col=0;col<3;col++)
-//                if(board[row][col]==board[row][col+1]) {
-//                    check++;
-//                    if(check==2 && board[row][col]!=0)
-//                        return board[row][col];
-//                }else
-//                    check=0;
-//
-//        //check cols
-//        for(int col=0;col<3;col++, check=0)
-//            for(int row=0;row<3;row++)
-//                if(board[row][col]==board[row+1][col]){
-//                    check++;
-//                    if(check==2 && board[row][col]!=0)
-//                        return board[row][col];
-//                }else
-//                    check=0;
-//
-//
-//        //Chceck rising horizontal
-//        for(int posx=3; posx<6;posx++)
-//            for(int posy=0;posy<4;posy++) {
-//                check = 0;
-//                for (int x=posx, y=posy; x >0 && y < 6; x--, y++)
-//                    if (board[x][y] == board[x - 1][y + 1]) {
-//                        check++;
-//                        if (check == 3 && board[x][y] != 0)
-//                            return board[x][y];
-//                    } else
-//                        check = 0;
-//            }
-//
-//        //Chceck falling horizontal
-//        for(int posx=0; posx<3;posx++)
-//            for(int posy=0;posy<4;posy++) {
-//                check = 0;
-//                for (int x=posx, y=posy; x < 5 && y < 6; x++, y++)
-//                    if (board[x][y] == board[x + 1][y + 1]) {
-//                        check++;
-//                        if (check == 3 && board[x][y] != 0)
-//                            return board[x][y];
-//                    } else
-//                        check = 0;
-//            }
-//        return 0;
-//    }
+    public int checkWin(){
+        int check = 0;
+        //Check rows
+        for(int row=0; row<2; row++, check=0)
+            for(int col=0;col<3;col++)
+                if(board[row][col]==board[row + 1][col]) {
+                    check++;
+                    if(check==2 && board[row][col]!=0)
+                        return board[row][col];
+                }else
+                    check=0;
+
+        //check cols
+        for(int col=0;col<2;col++, check=0)
+            for(int row=0;row<3;row++)
+                if(board[row][col]==board[row][col+1]){
+                    check++;
+                    if(check==2 && board[row][col]!=0)
+                        return board[row][col];
+                }else
+                    check=0;
+
+        //Chceck rising horizontal
+        for(int col = 0; col < 2; col++) {
+            for(int row = 2; row > 0; row--) {
+                check = 0;
+                if (board[row][col] == board[row - 1][col + 1]) {
+                    check++;
+                    if (check == 2 && board[col][row] != 0)
+                        return board[row][col];
+                } else
+                    check = 0;
+            }
+        }
+        //Chceck falling horizontal
+        for(int col = 2; col > 0; col--) {
+            for(int row = 0; row < 2; row ++) {
+                check = 0;
+                if (board[row][col] == board[row + 1][col - 1]) {
+                    check++;
+                    if (check == 2 && board[row][col] != 0)
+                        return board[row][col];
+                } else
+                    check = 0;
+            }
+        }
+        return 0;
+    }
 
 }
