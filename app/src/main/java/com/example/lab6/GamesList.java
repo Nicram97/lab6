@@ -71,6 +71,8 @@ public class GamesList extends AppCompatActivity {
                     intencja.putExtra(HttpService.URL, HttpService.LINES+game_id);
                 }else{
                     //TODO - geting ticTacToe games list
+                    intencja.putExtra(HttpService.URL, HttpService.XO+game_id);
+
                 }
                 //Set data - method of request
                 intencja.putExtra(HttpService.METHOD, HttpService.GET);
@@ -97,6 +99,7 @@ public class GamesList extends AppCompatActivity {
                         break;
                     default:
                         //TODO - when gamer choose TicTacToe Game
+                        System.out.print("SIEMA");
                         break;
                 }
                 startActivity(intencja);
@@ -130,6 +133,7 @@ public class GamesList extends AppCompatActivity {
             intencja.putExtra(HttpService.URL, HttpService.LINES);
         }else{
             //TODO - geting ticTacToe games list
+            intencja.putExtra(HttpService.URL, HttpService.XO);
         }
         //Set data - method of request
         intencja.putExtra(HttpService.METHOD, HttpService.GET);
@@ -221,6 +225,7 @@ public class GamesList extends AppCompatActivity {
                 }
             }else if(game==R.id.ticTac){
                 //TODO - start chosen game for TicTacToe
+                System.out.print("TicTac");
             }
         }
     }

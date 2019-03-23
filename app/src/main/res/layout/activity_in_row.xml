@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="pl.antons.rsatest.GamesList"
+    tools:context="GamesList"
     android:id="@+id/main_list"
     android:backgroundTintMode="multiply">
 
