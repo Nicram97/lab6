@@ -66,9 +66,9 @@ public class ticTacToe extends AppCompatActivity {
                     //User cannot move
                     status = ticTacToe.WAIT;
                     //Show hint about sending move
-                    hints(inRow.CONNECTION);
+                    hints(ticTacToe.CONNECTION);
 
-                    //Getting game (inRowBoard Adapter)
+                    //Getting game (ticTacToe Adapter)
                     GridView gv = (GridView) findViewById(R.id.gridView);
                     ticTacToeBoard game = (ticTacToeBoard) gv.getAdapter();
                     //Make Move
@@ -77,35 +77,35 @@ public class ticTacToe extends AppCompatActivity {
                     else
                     hints(ticTacToe.ERROR);
 //                        System.out.print("nie działam :( ");
-                }
-                //Creating intent for custom Service - sending Move to server
-                Intent intencja = new Intent(
-                        getApplicationContext(),
-                        HttpService.class);
-                //Creating PendingIntent - for response
-                PendingIntent pendingResult = createPendingResult(HttpService.IN_ROW, new Intent(),0);
+                    //Creating intent for custom Service - sending Move to server
+                    Intent intencja = new Intent(
+                            getApplicationContext(),
+                            HttpService.class);
+                    //Creating PendingIntent - for response
+                    PendingIntent pendingResult = createPendingResult(HttpService.IN_ROW, new Intent(),0);
 
-                if(game_id == ticTacToe.NEW_GAME)
-                {
-                    //new game
-                    //Set data - URL
-                    intencja.putExtra(HttpService.URL, HttpService.XO);
-                    //Set data - method of request
-                    intencja.putExtra(HttpService.METHOD, HttpService.POST);
-                }else{
-                    //existing game
-                    //Set data - URL
-                    intencja.putExtra(HttpService.URL, HttpService.XO+game_id);
-                    //Set data - method of request
-                    intencja.putExtra(HttpService.METHOD, HttpService.PUT);
-                }
+                    if(game_id == ticTacToe.NEW_GAME)
+                    {
+                        //new game
+                        //Set data - URL
+                        intencja.putExtra(HttpService.URL, HttpService.XO);
+                        //Set data - method of request
+                        intencja.putExtra(HttpService.METHOD, HttpService.POST);
+                    }else{
+                        //existing game
+                        //Set data - URL
+                        intencja.putExtra(HttpService.URL, HttpService.XO+game_id);
+                        //Set data - method of request
+                        intencja.putExtra(HttpService.METHOD, HttpService.PUT);
+                    }
 
-                //Set data - parameters
-                intencja.putExtra(HttpService.PARAMS, "moves=" + moves + id );
-                //Set data - intent for result
-                intencja.putExtra(HttpService.RETURN, pendingResult);
-                //Start unBound Service in another Thread
-                startService(intencja);
+                    //Set data - parameters
+                    intencja.putExtra(HttpService.PARAMS, "moves=" + moves + id );
+                    //Set data - intent for result
+                    intencja.putExtra(HttpService.RETURN, pendingResult);
+                    //Start unBound Service in another Thread
+                    startService(intencja);
+                }
             }
         });
     }
