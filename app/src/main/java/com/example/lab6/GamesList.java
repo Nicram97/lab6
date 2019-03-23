@@ -225,7 +225,17 @@ public class GamesList extends AppCompatActivity {
                 }
             }else if(game==R.id.ticTac){
                 //TODO - start chosen game for TicTacToe
-                System.out.print("TicTac");
+                //Create intent to start game TicTac
+                Intent intencja = new Intent(getApplicationContext(), ticTacToe.class);
+
+                try {
+                    //start game
+                    startActivity(intencja);
+
+                } catch (Exception ex) {
+                    //For JSON Object
+                    ex.printStackTrace();
+                }
             }
         }
     }
