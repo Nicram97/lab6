@@ -7,10 +7,6 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-/**
- * Created by Anton on 09.05.2016.
- * Adapter for GridView - implement gameplay of signle game
- */
 public class inRowBoard extends BaseAdapter {
     private Context context;
     private int player; //Current player (for move)

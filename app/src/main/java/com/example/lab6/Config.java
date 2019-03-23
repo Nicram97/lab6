@@ -16,10 +16,6 @@ import java.security.spec.PKCS8EncodedKeySpec;
 
 import javax.crypto.Cipher;
 
-/**
- * Created by Anton on 08.05.2016.
- * Method holds application config
- */
 public class Config extends SQLiteOpenHelper {
     private static final int
             DATABASE_VERSION = 1;
