@@ -35,17 +35,6 @@ public class ticTacToeBoard extends BaseAdapter {
 
     //Method make move
     private boolean move(int col, int row, int player) {
-//        int row = 0;
-//        try {
-        //when field is taken, go upstairs
-//            while (board[row][col] != 0)
-//                row++;
-//            board[row][col]=player+1;
-//        }catch(Exception ex){
-        /*if all cols are fils*/
-//            return false;
-//        }
-//        return true;
         if (board[row][col] == 0) {
             board[row][col] = player + 1;
             return true;
@@ -56,7 +45,6 @@ public class ticTacToeBoard extends BaseAdapter {
 
     //Public method making move for playing user
     public ticTacToeBoard add(int count) {
-//        count = count - 1;
         int row = count / 3;
         int col = count % 3;
         //If change `player++%2` to `player` there is no switching between players
@@ -113,33 +101,19 @@ public class ticTacToeBoard extends BaseAdapter {
 
     public int checkWin() {
         int check = 0;
-        //Check rows
-        for (int row = 0; row < 2; row++, check = 0) {
-            check = 0;
-            for (int col = 0; col < 3; col++) {
-                if (board[row][col] == board[row + 1][col]) {
-                    check++;
-                    if (check == 3 && board[row][col] != 0)
-                        return board[row][col];
-                } else {
-                    check = 0;
-//                    break;
-                }
+        for (int i=0; i<=2; i++)
+        {
+            if(board[i][0]==board[i][1] && board[i][1]==board[i][2] && board[i][0]!=0)
+            {
+                return board[i][0];
             }
         }
-        check = 0;
-        //check cols
-        for (int col = 0; col < 2; col++, check = 0) {
-            check = 0;
-            for (int row = 0; row < 3; row++) {
-                if (board[row][col] == board[row][col + 1]) {
-                    check++;
-                    if (check == 3 && board[row][col] != 0)
-                        return board[row][col];
-                } else {
-                    check = 0;
-//                    break;
-                }
+
+        for(int i=0; i<=2; i++)
+        {
+            if (board[0][i]==board[1][i] && board[1][i]==board[2][i] && board[0][i]!=0)
+            {
+                return board[0][i];
             }
         }
 
@@ -147,32 +121,11 @@ public class ticTacToeBoard extends BaseAdapter {
         if (board[0][0] == board[1][1] && board[1][1] == board[2][2]) {
             return board[0][0];
         }
-//        for (int col = 0; col < 2; col++) {
-//            for (int row = 2; row > 0; row--) {
-//                if (board[row][col] == board[row - 1][col + 1]) {
-//                    check++;
-//                    if (check == 3 && board[col][row] != 0)
-//                        return board[row][col];
-//                } else {
-//                    check = 0;
-//                }
-//            }
-//        }
+
         if (board[0][2] == board[1][1] && board[1][1] == board[2][0]) {
             return board[0][2];
         }
-        //Chceck falling horizontal
-//        for (int col = 2; col > 0; col--) {
-//            for (int row = 0; row < 2; row++) {
-//                if (board[row][col] == board[row + 1][col - 1]) {
-//                    check++;
-//                    if (check == 3 && board[row][col] != 0)
-//                        return board[row][col];
-//                } else {
-//                    check = 0;
-//                }
-//            }
-//        }
+
         return 0;
     }
 

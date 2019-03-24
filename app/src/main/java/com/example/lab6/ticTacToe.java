@@ -172,7 +172,8 @@ public class ticTacToe extends AppCompatActivity {
                 gv.setAdapter(game);
 
                 //check whose turn
-                if(response.getInt("status")==player){
+                int gameStatus = response.getInt("status");
+                if(gameStatus==player || gameStatus == 3){
                     int winStatus = game.checkWin();
                     if(winStatus==player) {
                         hints(ticTacToe.WIN);
